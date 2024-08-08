@@ -1,0 +1,30 @@
+[
+    {
+        "code": "AAC",
+        "fullName": "AUSTRALIAN COMPANY",
+        "jobTitle": "$1.38",
+        "phoneNumber": "+2.01",
+        "address": "-0.36%"
+    },
+    {
+        "code": "AAD",
+        "fullName": "AUSENCO",
+        "jobTitle": "$2.38",
+        "phoneNumber": "-0.01",
+        "address": "-1.36%"
+    },
+    {
+        "code": "AAX",
+        "fullName": "ADELAIDE",
+        "jobTitle": "$3.22",
+        "phoneNumber": "+0.01",
+        "address": "+1.36%"
+    },
+    {
+        "code": "XXD",
+        "fullName": "ADITYA BIRLA",
+        "jobTitle": "$1.02",
+        "phoneNumber": "-1.01",
+        "address": "+2.36%"
+    }
+]

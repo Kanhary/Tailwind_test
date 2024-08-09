@@ -1,0 +1,21 @@
+[
+    {
+        "description": "Alphabet puzzle",
+        "deadline": "2016/01/15",
+        "status": "Done",
+        "amount": 1000
+    },
+    {
+        "description": "Layout for poster",
+        "deadline": "2016/01/31",
+        "status": "Planned",
+        "amount": 1834
+    },
+    {
+        "description": "Image creation",
+        "deadline": "2016/01/23",
+        "status": "To Do",
+        "amount": 1500
+    }
+   
+]

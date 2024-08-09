@@ -107,3 +107,33 @@ $(document).ready(function() {
       $('.modal .modal-body').empty();
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('./data.json') // Replace with the path to your JSON file
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.querySelector('#example tbody');
+            data.forEach((row, index) => {
+                const tr = document.createElement('tr');
+
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${row.description}</td>
+                    <td>${row.deadline}</td>
+                    <td>${row.status}</td>
+                    <td>${row.amount}</td>
+                    <td>
+                        <button type="button" class="btn-td btn btn-primary btn-xs dt-edit" style="margin-right:16px;">
+                            <span aria-hidden="true"><i class="fa-solid fa-pen"></i></span>
+                        </button>
+                        <button type="button" class="btn-td btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"><i class="fa-solid fa-trash"></i></span>
+                        </button>
+                    </td>
+                `;
+
+                tableBody.appendChild(tr);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});

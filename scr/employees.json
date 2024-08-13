@@ -1,87 +1,52 @@
 [
-    {
-        "code": "AAC",
-        "fullName": "AUSTRALIAN COMPANY",
-        "jobTitle": "$1.38",
-        "phoneNumber": "+2.01",
-        "address": "-0.36%"
-    },
-    {
-        "code": "AAD",
-        "fullName": "AUSENCO",
-        "jobTitle": "$2.38",
-        "phoneNumber": "-0.01",
-        "address": "-1.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-        "code": "XXD",
-        "fullName": "ADITYA BIRLA",
-        "jobTitle": "$1.02",
-        "phoneNumber": "-1.01",
-        "address": "+2.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-            
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    },
-    {
-        "code": "AAX",
-        "fullName": "ADELAIDE",
-        "jobTitle": "$3.22",
-        "phoneNumber": "+0.01",
-        "address": "+1.36%"
-    }
+    { "code": "E001", "fullName": "Alice Johnson", "jobTitle": "Developer", "phoneNumber": "123-456-7890", "address": "123 Elm St, Springfield, IL" },
+    { "code": "E002", "fullName": "Bob Smith", "jobTitle": "Manager", "phoneNumber": "123-456-7891", "address": "456 Oak St, Springfield, IL" },
+    { "code": "E003", "fullName": "Charlie Davis", "jobTitle": "HR", "phoneNumber": "123-456-7892", "address": "789 Pine St, Springfield, IL" },
+    { "code": "E004", "fullName": "Dana Lee", "jobTitle": "Accounting", "phoneNumber": "123-456-7893", "address": "101 Maple St, Springfield, IL" },
+    { "code": "E005", "fullName": "Eve White", "jobTitle": "Developer", "phoneNumber": "123-456-7894", "address": "202 Birch St, Springfield, IL" },
+    { "code": "E006", "fullName": "Frank Green", "jobTitle": "Manager", "phoneNumber": "123-456-7895", "address": "303 Cedar St, Springfield, IL" },
+    { "code": "E007", "fullName": "Grace Adams", "jobTitle": "HR", "phoneNumber": "123-456-7896", "address": "404 Spruce St, Springfield, IL" },
+    { "code": "E008", "fullName": "Hank Thompson", "jobTitle": "Accounting", "phoneNumber": "123-456-7897", "address": "505 Fir St, Springfield, IL" },
+    { "code": "E009", "fullName": "Ivy Lewis", "jobTitle": "Developer", "phoneNumber": "123-456-7898", "address": "606 Redwood St, Springfield, IL" },
+    { "code": "E010", "fullName": "Jack Wilson", "jobTitle": "Manager", "phoneNumber": "123-456-7899", "address": "707 Palm St, Springfield, IL" },
+    { "code": "E011", "fullName": "Kara Martinez", "jobTitle": "HR", "phoneNumber": "123-456-7800", "address": "808 Willow St, Springfield, IL" },
+    { "code": "E012", "fullName": "Leo Moore", "jobTitle": "Accounting", "phoneNumber": "123-456-7801", "address": "909 Birch St, Springfield, IL" },
+    { "code": "E013", "fullName": "Mia Anderson", "jobTitle": "Developer", "phoneNumber": "123-456-7802", "address": "1010 Oak St, Springfield, IL" },
+    { "code": "E014", "fullName": "Noah Taylor", "jobTitle": "Manager", "phoneNumber": "123-456-7803", "address": "1111 Elm St, Springfield, IL" },
+    { "code": "E015", "fullName": "Olivia Harris", "jobTitle": "HR", "phoneNumber": "123-456-7804", "address": "1212 Maple St, Springfield, IL" },
+    { "code": "E016", "fullName": "Paul Clark", "jobTitle": "Accounting", "phoneNumber": "123-456-7805", "address": "1313 Pine St, Springfield, IL" },
+    { "code": "E017", "fullName": "Quinn Lewis", "jobTitle": "Developer", "phoneNumber": "123-456-7806", "address": "1414 Cedar St, Springfield, IL" },
+    { "code": "E018", "fullName": "Riley Walker", "jobTitle": "Manager", "phoneNumber": "123-456-7807", "address": "1515 Spruce St, Springfield, IL" },
+    { "code": "E019", "fullName": "Sam Hall", "jobTitle": "HR", "phoneNumber": "123-456-7808", "address": "1616 Fir St, Springfield, IL" },
+    { "code": "E020", "fullName": "Tina Scott", "jobTitle": "Accounting", "phoneNumber": "123-456-7809", "address": "1717 Redwood St, Springfield, IL" },
+    { "code": "E021", "fullName": "Ursula Young", "jobTitle": "Developer", "phoneNumber": "123-456-7810", "address": "1818 Palm St, Springfield, IL" },
+    { "code": "E022", "fullName": "Victor King", "jobTitle": "Manager", "phoneNumber": "123-456-7811", "address": "1919 Willow St, Springfield, IL" },
+    { "code": "E023", "fullName": "Wendy Wright", "jobTitle": "HR", "phoneNumber": "123-456-7812", "address": "2020 Birch St, Springfield, IL" },
+    { "code": "E024", "fullName": "Xander Robinson", "jobTitle": "Accounting", "phoneNumber": "123-456-7813", "address": "2121 Oak St, Springfield, IL" },
+    { "code": "E025", "fullName": "Yara Nelson", "jobTitle": "Developer", "phoneNumber": "123-456-7814", "address": "2222 Elm St, Springfield, IL" },
+    { "code": "E026", "fullName": "Zachary Carter", "jobTitle": "Manager", "phoneNumber": "123-456-7815", "address": "2323 Maple St, Springfield, IL" },
+    { "code": "E027", "fullName": "Aiden Murphy", "jobTitle": "HR", "phoneNumber": "123-456-7816", "address": "2424 Pine St, Springfield, IL" },
+    { "code": "E028", "fullName": "Bella Martinez", "jobTitle": "Accounting", "phoneNumber": "123-456-7817", "address": "2525 Cedar St, Springfield, IL" },
+    { "code": "E029", "fullName": "Carter Davis", "jobTitle": "Developer", "phoneNumber": "123-456-7818", "address": "2626 Spruce St, Springfield, IL" },
+    { "code": "E030", "fullName": "Diana Lewis", "jobTitle": "Manager", "phoneNumber": "123-456-7819", "address": "2727 Fir St, Springfield, IL" },
+    { "code": "E031", "fullName": "Ethan Wilson", "jobTitle": "HR", "phoneNumber": "123-456-7820", "address": "2828 Redwood St, Springfield, IL" },
+    { "code": "E032", "fullName": "Fiona Young", "jobTitle": "Accounting", "phoneNumber": "123-456-7821", "address": "2929 Palm St, Springfield, IL" },
+    { "code": "E033", "fullName": "George Taylor", "jobTitle": "Developer", "phoneNumber": "123-456-7822", "address": "3030 Willow St, Springfield, IL" },
+    { "code": "E034", "fullName": "Hannah Brown", "jobTitle": "Manager", "phoneNumber": "123-456-7823", "address": "3131 Birch St, Springfield, IL" },
+    { "code": "E035", "fullName": "Ian Scott", "jobTitle": "HR", "phoneNumber": "123-456-7824", "address": "3232 Oak St, Springfield, IL" },
+    { "code": "E036", "fullName": "Judy Green", "jobTitle": "Accounting", "phoneNumber": "123-456-7825", "address": "3333 Elm St, Springfield, IL" },
+    { "code": "E037", "fullName": "Kyle Adams", "jobTitle": "Developer", "phoneNumber": "123-456-7826", "address": "3434 Maple St, Springfield, IL" },
+    { "code": "E038", "fullName": "Laura Moore", "jobTitle": "Manager", "phoneNumber": "123-456-7827", "address": "3535 Pine St, Springfield, IL" },
+    { "code": "E039", "fullName": "Mason Johnson", "jobTitle": "HR", "phoneNumber": "123-456-7828", "address": "3636 Cedar St, Springfield, IL" },
+    { "code": "E040", "fullName": "Nina White", "jobTitle": "Accounting", "phoneNumber": "123-456-7829", "address": "3737 Spruce St, Springfield, IL" },
+    { "code": "E041", "fullName": "Oscar Lee", "jobTitle": "Developer", "phoneNumber": "123-456-7830", "address": "3838 Fir St, Springfield, IL" },
+    { "code": "E042", "fullName": "Paula Adams", "jobTitle": "Manager", "phoneNumber": "123-456-7831", "address": "3939 Redwood St, Springfield, IL" },
+    { "code": "E043", "fullName": "Quincy Harris", "jobTitle": "HR", "phoneNumber": "123-456-7832", "address": "4040 Palm St, Springfield, IL" },
+    { "code": "E044", "fullName": "Rita Walker", "jobTitle": "Accounting", "phoneNumber": "123-456-7833", "address": "4141 Willow St, Springfield, IL" },
+    { "code": "E045", "fullName": "Steve Carter", "jobTitle": "Developer", "phoneNumber": "123-456-7834", "address": "4242 Birch St, Springfield, IL" },
+    { "code": "E046", "fullName": "Tracy Robinson", "jobTitle": "Manager", "phoneNumber": "123-456-7835", "address": "4343 Oak St, Springfield, IL" },
+    { "code": "E047", "fullName": "Ulysses Wright", "jobTitle": "HR", "phoneNumber": "123-456-7836", "address": "4444 Elm St, Springfield, IL" },
+    { "code": "E048", "fullName": "Vanessa Wilson", "jobTitle": "Accounting", "phoneNumber": "123-456-7837", "address": "4545 Maple St, Springfield, IL" },
+    { "code": "E049", "fullName": "Will Johnson", "jobTitle": "Developer", "phoneNumber": "123-456-7838", "address": "4646 Pine St, Springfield, IL" },
+    { "code": "E050", "fullName": "Xena Moore", "jobTitle": "Manager", "phoneNumber": "123-456-7839", "address": "4747 Cedar St, Springfield, IL" }
 ]

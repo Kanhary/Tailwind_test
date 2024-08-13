@@ -1,138 +1,140 @@
-// Show the add employee modal
-document.getElementById('addEmployeeButton').addEventListener('click', function() {
-    document.getElementById('employeeModal').style.display = 'flex';
-});
+document.addEventListener('DOMContentLoaded', function () {
+    const employeeTable = document.getElementById('employeeTable').getElementsByTagName('tbody')[0];
+    const addEmployeeButton = document.getElementById('addEmployeeButton');
+    const employeeModal = document.getElementById('employeeModal');
+    const closeModalButton = document.getElementById('closeModalButton');
+    const employeeForm = document.getElementById('employeeForm');
+    const searchDropdown = document.getElementById('searchDropdown');
+    const jobDropdown = document.getElementById('jobDropdown');
+    const fullnameHeader = document.getElementById('fullnameHeader');
+    const jobTitleHeader = document.getElementById('jobTitleHeader');
+    const searchName = document.getElementById('searchName');
 
-// Close the add employee modal
-document.getElementById('closeModalButton').addEventListener('click', function() {
-    document.getElementById('employeeModal').style.display = 'none';
-});
+    let employees = [];
 
-// Handle form submission for adding a new employee
-document.getElementById('employeeForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+    function renderTable(data) {
+        employeeTable.innerHTML = '';
+        data.forEach(employee => {
+            const row = employeeTable.insertRow();
+            row.insertCell().textContent = employee.code;
+            row.insertCell().textContent = employee.fullName;
+            row.insertCell().textContent = employee.jobTitle;
+            row.insertCell().textContent = employee.phoneNumber;
+            row.insertCell().textContent = employee.address;
 
-    // Collect data from the form
-    const code = document.getElementById('code').value;
-    const fullName = document.getElementById('fullName').value;
-    const jobTitle = document.getElementById('jobTitle').value;
-    const phoneNumber = document.getElementById('phoneNumber').value;
-    const address = document.getElementById('address').value;
-
-    // Add new row to the table
-    const tableBody = document.querySelector('#employeeTable tbody');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${code}</td>
-        <td>${fullName}</td>
-        <td>${jobTitle}</td>
-        <td>${phoneNumber}</td>
-        <td>${address}</td>
-        <td>
-            <div class="action-buttons">
-                <button class="edit-btn" onclick="editEmployee('${code}', '${fullName}', '${jobTitle}', '${phoneNumber}', '${address}')">Edit</button>
-                <button class="delete-btn" onclick="deleteEmployee('${code}')">Delete</button>
-            </div>
-        </td>
-    `;
-    tableBody.appendChild(row);
-
-    // Hide modal and reset form
-    document.getElementById('employeeModal').style.display = 'none';
-    document.getElementById('employeeForm').reset();
-});
-
-// Open edit modal and populate data
-function editEmployee(code, fullName, jobTitle, phoneNumber, address) {
-    // Open modal
-    document.getElementById('editEmployeeModal').classList.remove('hidden');
-
-    // Populate modal with the data from the clicked row
-    document.getElementById('editEmployeeId').value = code; // Store code or ID in a hidden input
-    document.getElementById('editCode').value = code;
-    document.getElementById('editFullName').value = fullName;
-    document.getElementById('editJobTitle').value = jobTitle;
-    document.getElementById('editPhoneNumber').value = phoneNumber;
-    document.getElementById('editAddress').value = address;
-}
-
-// Close edit modal
-function closeEditModal() {
-    document.getElementById('editEmployeeModal').classList.add('hidden');
-}
-
-// Handle form submission for editing an employee
-document.getElementById('editEmployeeForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    // Collect data from the form
-    const code = document.getElementById('editCode').value;
-    const fullName = document.getElementById('editFullName').value;
-    const jobTitle = document.getElementById('editJobTitle').value;
-    const phoneNumber = document.getElementById('editPhoneNumber').value;
-    const address = document.getElementById('editAddress').value;
-    const employeeId = document.getElementById('editEmployeeId').value;
-
-    // Update the employee row
-    const tableBody = document.querySelector('#employeeTable tbody');
-    const rows = tableBody.querySelectorAll('tr');
-    rows.forEach(row => {
-        if (row.querySelector('td').textContent === employeeId) {
-            row.innerHTML = `
-                <td>${code}</td>
-                <td>${fullName}</td>
-                <td>${jobTitle}</td>
-                <td>${phoneNumber}</td>
-                <td>${address}</td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="edit-btn" onclick="editEmployee('${code}', '${fullName}', '${jobTitle}', '${phoneNumber}', '${address}')">Edit</button>
-                        <button class="delete-btn" onclick="deleteEmployee('${code}')">Delete</button>
-                    </div>
-                </td>
+            const actionCell = row.insertCell();
+            actionCell.classList.add('action-buttons');
+            actionCell.innerHTML = `
+                <button class="edit-btn shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="editEmployee('${employee.code}', '${employee.fullName}', '${employee.jobTitle}', '${employee.phoneNumber}', '${employee.address}')">Edit</button>
+                <button class="delete-btn" onclick="deleteEmployee('${employee.code}')">Delete</button>
             `;
+        });
+    }
+
+    function openModal() {
+        employeeModal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        employeeModal.style.display = 'none';
+    }
+
+    function filterEmployeesByName(searchTerm) {
+        const filtered = employees.filter(employee =>
+            employee.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        renderTable(filtered);
+    }
+
+    function filterEmployeesByJobTitle(jobTitle) {
+        const filtered = employees.filter(employee =>
+            employee.jobTitle === jobTitle
+        );
+        renderTable(filtered);
+    }
+
+    // Fetch employee data from JSON file
+    fetch('./employees.json')
+        .then(response => response.json())
+        .then(data => {
+            employees = data;
+            renderTable(employees);
+        })
+        .catch(error => console.error('Error fetching employee data:', error));
+
+    addEmployeeButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+
+    employeeForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const newEmployee = {
+            code: document.getElementById('code').value,
+            fullName: document.getElementById('fullName').value,
+            jobTitle: document.getElementById('jobTitle').value,
+            phoneNumber: document.getElementById('phoneNumber').value,
+            address: document.getElementById('address').value,
+        };
+        employees.push(newEmployee);
+        renderTable(employees);
+        closeModal();
+        employeeForm.reset();
+    });
+
+    fullnameHeader.addEventListener('click', function () {
+        searchDropdown.classList.toggle('active');
+    });
+
+    jobTitleHeader.addEventListener('click', function () {
+        jobDropdown.classList.toggle('active');
+    });
+
+    searchName.addEventListener('input', function () {
+        filterEmployeesByName(this.value);
+    });
+
+    jobDropdown.addEventListener('click', function (e) {
+        if (e.target.tagName === 'LI') {
+            filterEmployeesByJobTitle(e.target.dataset.job);
+            jobDropdown.classList.remove('active');
         }
     });
 
-    // Close modal
-    closeEditModal();
-});
+    // Expose functions for edit and delete to global scope
+    window.editEmployee = function (code, fullName, jobTitle, phoneNumber, address) {
+        const modal = document.getElementById('editEmployeeModal');
+        modal.style.display = 'flex';
 
-// Delete employee
-function deleteEmployee(code) {
-    if (confirm("Are you sure you want to delete this employee?")) {
-        // Remove the employee row
-        const tableBody = document.querySelector('#employeeTable tbody');
-        const rows = tableBody.querySelectorAll('tr');
-        rows.forEach(row => {
-            if (row.querySelector('td').textContent === code) {
-                tableBody.removeChild(row);
-            }
-        });
+        document.getElementById('editCode').value = code;
+        document.getElementById('editFullName').value = fullName;
+        document.getElementById('editJobTitle').value = jobTitle;
+        document.getElementById('editPhoneNumber').value = phoneNumber;
+        document.getElementById('editAddress').value = address;
+    };
+
+    window.deleteEmployee = function (code) {
+        if (confirm("Are you sure you want to delete this employee?")) {
+            employees = employees.filter(emp => emp.code !== code);
+            renderTable(employees);
+        }
+    };
+
+    // Add event listener to the Cancel button
+    const cancelButton = document.getElementById('cancelEditButton');
+    if (cancelButton) {
+        console.log('Cancel button found. Attaching event listener.');
+        cancelButton.addEventListener('click', closeEditModal);
+    } else {
+        console.error('Cancel button not found.');
     }
-}
 
-// Fetch employee data from the JSON file
-fetch('./employees.json')
-    .then(response => response.json())
-    .then(data => {
-        const tableBody = document.querySelector('#employeeTable tbody');
-        data.forEach(employee => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${employee.code}</td>
-                <td>${employee.fullName}</td>
-                <td>${employee.jobTitle}</td>
-                <td>${employee.phoneNumber}</td>
-                <td>${employee.address}</td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="edit-btn" onclick="editEmployee('${employee.code}', '${employee.fullName}', '${employee.jobTitle}', '${employee.phoneNumber}', '${employee.address}')">Edit</button>
-                        <button class="delete-btn" onclick="deleteEmployee('${employee.code}')">Delete</button>
-                    </div>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
-    })
-    .catch(error => console.error('Error fetching employee data:', error));
+    // Function to close the Edit Employee modal
+    function closeEditModal() {
+        const modal = document.getElementById('editEmployeeModal');
+        if (modal) {
+            console.log('Closing the Edit Employee modal.');
+            modal.style.display = 'none'; // Hide the modal
+        } else {
+            console.error('Edit Employee modal not found.');
+        }
+    }
+});

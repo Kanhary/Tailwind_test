@@ -1,188 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <script src="./TableData.js"></script>
-    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="./TableData.js" defer></script>
+    <script src="./jquery.min.js"></script>
+    <title>Employee Table</title>
     <style>
-        body {
-            background-size: cover;
-            background-position: center;
-            font-family: 'Arial', sans-serif;
-        }
-        .tbl-header {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 12px;
-            border-radius: 12px 12px 0 0;
-        }
-        .tbl-content {
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 0 0 12px 12px;
-            background-color: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-        }
-        th {
-            padding: 20px 15px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 15px;
-            color: #003366;
-            text-transform: uppercase;
-        }
-        td {
-            padding: 15px;
-            text-align: left;
-            vertical-align: middle;
-            font-weight: 500;
-            font-size: 14px;
-            color: #333;
-            border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-            min-width: 120px;
-            box-sizing: border-box;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            width: 400px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .action-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .action-buttons button {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: white;
-            border-radius: 0.375rem;
-        }
-        .edit-btn {
-            background-color: #10B981; /* Green */
-        }
-        .delete-btn {
-            background-color: #EF4444; /* Red */
-        }
+      body {
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        font-family: "Arial", sans-serif;
+      }
+
+      .tbl-header {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 12px;
+        border-radius: 12px 12px 0 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .tbl-content {
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 0 0 12px 12px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        color: #003366;
+        text-transform: uppercase;
+        border-bottom: 2px solid #003366;
+        background-color: #f1f3f5;
+        border-radius: 8px;
+        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        word-wrap: break-word;
+      }
+
+      td {
+        padding: 14px;
+        text-align: left;
+        vertical-align: middle;
+        font-weight: 500;
+        font-size: 13px;
+        color: #333;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        min-width: 120px;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow: hidden;
+      }
+
+      tr:hover td {
+        background-color: #f9f9f9;
+        transform: translateY(-2px);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        z-index: 1001;
+      }
+
+      .modal-content {
+        border-radius: 8px;
+        width: 400px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background: white;
+      }
+
+      .action-buttons button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        border-radius: 0.375rem;
+        margin: 0.25rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .action-buttons .edit-btn {
+        background-color: #2563eb;
+        color: white;
+      }
+
+      .action-buttons .edit-btn:hover {
+        background-color: #1d4ed8;
+        transform: scale(1.02);
+      }
+      
+
+      .action-buttons .delete-btn {
+        background-color: #f44336;
+        color: white;
+      }
+
+      .action-buttons .delete-btn:hover {
+        background-color: #e63946;
+        transform: scale(1.02);
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        background: linear-gradient(to bottom, #ffffff, #f1f3f5);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        padding: 0.5rem;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      .dropdown-menu.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .dropdown-menu li {
+        padding: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, padding-left 0.3s ease;
+        border-radius: 4px;
+      }
+
+      .dropdown-menu li:hover {
+        background-color: #e9ecef;
+        padding-left: 16px;
+      }
+
+      .dropdown-menu input {
+        padding: 12px 16px; /* More balanced padding for a comfortable input */
+        border: 1px solid #ddd; /* Softer border color */
+        border-radius: 12px; /* Rounded corners for a modern look */
+        margin-bottom: 12px; /* Increase margin for better spacing */
+        width: calc(
+          100% - 28px
+        ); /* Ensure input fits well inside the dropdown */
+        font-size: 14px; /* Slightly larger font for readability */
+        color: #333; /* Text color */
+        background-color: #fff; /* White background color for cleanliness */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on focus */
+        outline: none; /* Remove default outline */
+      }
+
+      .dropdown-menu input:focus {
+        border-color: #007bff; /* Blue border on focus */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Soft glow effect on focus */
+        background-color: #f0f8ff; /* Slightly lighter background on focus */
+      }
+
+      .dropdown-menu .clear-btn {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        font-size: 16px;
+        transition: color 0.3s ease;
+      }
+
+      .dropdown-menu .clear-btn:hover {
+        color: #007bff; /* Change color on hover */
+      }
     </style>
-</head>
-<body>
-    <div class="w-4/5 mx-auto main">
-        <h1 class="py-4 text-2xl font-bold text-center text-gray-800 uppercase mt-15">Employee Information</h1>
-    <div class="flex my-4">
-        <button id="addEmployeeButton" class="px-6 py-2 font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            New
+  </head>
+  <body>
+    <div class="w-4/5 mx-auto mt-10">
+      <h1 class="py-4 text-2xl font-bold text-center text-gray-800 uppercase">
+        Employee Information
+      </h1>
+      <div class="flex justify-end mb-4">
+        <button
+          id="addEmployeeButton"
+          class="px-6 py-2 font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          New
         </button>
-    </div>
-    <div class="tbl-header">
+      </div>
+      <div class="tbl-header">
         <table border="0" class="w-full table-fixed">
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Full Name</th>
-                    <th>Job Title</th>
-                    <th>Phone Number</th>
-                    <th>Address</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>
+                <div class="relative">
+                  <span id="fullnameHeader" class="cursor-pointer"
+                    >Full Name <i class="fa-solid fa-angle-down"></i
+                  ></span>
+                  <div id="searchDropdown" class="dropdown-menu">
+                    <input
+                      type="text"
+                      id="searchName"
+                      class="w-full px-2 py-1 border-0 focus:outline-none"
+                      placeholder="Search by name"
+                    />
+                    <button class="clear-btn" id="clearSearch">
+                      <i class="fa-solid fa-times"></i>
+                    </button>
+                    
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div class="relative">
+                  <span id="jobTitleHeader" class="cursor-pointer"
+                    >Job Title <i class="fa-solid fa-angle-down"></i
+                  ></span>
+                  <div id="jobDropdown" class="dropdown-menu">
+                    <ul>
+                      <li class="p-2 cursor-pointer" data-job="Developer">
+                        Developer
+                      </li>
+                      <li class="p-2 cursor-pointer" data-job="Accounting">
+                        Accounting
+                      </li>
+                      <li class="p-2 cursor-pointer" data-job="HR">HR</li>
+                      <li class="p-2 cursor-pointer" data-job="Manager">
+                        Manager
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+              <th>Phone Number</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+          </thead>
         </table>
-    </div>
-    <div class="mt-0 overflow-x-auto h-96 tbl-content">
+      </div>
+      <div class="overflow-x-auto tbl-content h-96">
         <table id="employeeTable" class="w-full">
-            <tbody>
-                <!-- Example Row -->
-                <!-- More rows can be dynamically inserted here -->
-            </tbody>
+          <tbody>
+            <!-- Rows will be dynamically inserted here -->
+          </tbody>
         </table>
-    </div>
+      </div>
     </div>
 
     <!-- Modal for Adding New Employee -->
+    <!-- Modal for Adding New Employee -->
     <div id="employeeModal" class="modal">
-        <div class="modal-content">
-            <h2 class="mb-4 text-lg font-semibold text-right text-gray-800">Add New Employee</h2>
-            <form id="employeeForm">
-                <div class="mb-4">
-                    <label for="code" class="block text-sm font-medium text-gray-700​​​​​​​​">Code</label>
-                    <input type="text" id="code" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                </div>
-                <div class="mb-4">
-                    <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="fullName" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                </div>
-                <div class="mb-4">
-                    <label for="jobTitle" class="block text-sm font-medium text-gray-700">Job Title</label>
-                    <input type="text" id="jobTitle" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                </div>
-                <div class="mb-4">
-                    <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                    <input type="text" id="phoneNumber" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                </div>
-                <div class="mb-4">
-                    <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                    <input type="text" id="address" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                </div>
-                <div class="flex justify-end">
-                    <button type="submit" class="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Add</button>
-                    <button type="button" id="closeModalButton" class="px-4 py-2 ml-4 font-semibold text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Cancel</button>
-                </div>
-            </form>
-        </div>
+      <div class="modal-content">
+        <h2 class="mb-6 text-2xl font-semibold text-center text-gray-900">
+          Add New Employee
+        </h2>
+        <form id="employeeForm">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col">
+              <label for="code" class="mb-2 text-sm font-medium text-gray-700"
+                >Code</label
+              >
+              <input
+                type="text"
+                id="code"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div class="flex flex-col">
+              <label
+                for="fullName"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Full Name</label
+              >
+              <input
+                type="text"
+                id="fullName"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div class="flex flex-col">
+              <label
+                for="jobTitle"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Job Title</label
+              >
+              <input
+                type="text"
+                id="jobTitle"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div class="flex flex-col">
+              <label
+                for="phoneNumber"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Phone Number</label
+              >
+              <input
+                type="text"
+                id="phoneNumber"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div class="flex flex-col sm:col-span-2">
+              <label
+                for="address"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Address</label
+              >
+              <input
+                type="text"
+                id="address"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+          </div>
+          <div class="flex justify-end mt-6">
+            <button
+              type="submit"
+              class="px-6 py-2 font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Add Employee
+            </button>
+            <button
+              type="button"
+              id="closeModalButton"
+              class="px-6 py-2 ml-4 font-semibold text-gray-600 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <!-- Edit Modal -->
-    <div id="editEmployeeModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
-        <div class="p-6 bg-white rounded-lg shadow-lg">
-            <h2 class="mb-4 text-lg font-bold text-gray-800">Edit Employee</h2>
-            <form id="editEmployeeForm">
-                <input type="hidden" id="editEmployeeId">
-                <div class="mb-4">
-                    <label for="editCode" class="block text-sm font-medium text-gray-700">Code</label>
-                    <input type="text" id="editCode" class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div class="mb-4">
-                    <label for="editFullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="editFullName" class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div class="mb-4">
-                    <label for="editJobTitle" class="block text-sm font-medium text-gray-700">Job Title</label>
-                    <input type="text" id="editJobTitle" class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div class="mb-4">
-                    <label for="editPhoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                    <input type="text" id="editPhoneNumber" class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div class="mb-4">
-                    <label for="editAddress" class="block text-sm font-medium text-gray-700">Address</label>
-                    <input type="text" id="editAddress" class="w-full p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-blue-500">
-                </div>
-                <div class="flex justify-end">
-                    <button type="submit" class="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg">Save</button>
-                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 ml-2 font-semibold text-white bg-gray-500 rounded-lg">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!-- Modal for Editing Employee -->
+    <div id="editEmployeeModal" class="modal">
+      <div class="modal-content">
+        <h2 class="mb-6 text-2xl font-semibold text-center text-gray-900">
+          Edit Employee
+        </h2>
+        <form id="editEmployeeForm">
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div class="flex flex-col">
+              <label
+                for="editCode"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Code</label
+              >
+              <input
+                type="text"
+                id="editCode"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                readonly
+              />
+            </div>
+            <div class="flex flex-col">
+              <label
+                for="editFullName"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Full Name</label
+              >
+              <input
+                type="text"
+                id="editFullName"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div class="flex flex-col">
+              <label
+                for="editJobTitle"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Job Title</label
+              >
+              <input
+                type="text"
+                id="editJobTitle"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div class="flex flex-col">
+              <label
+                for="editPhoneNumber"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Phone Number</label
+              >
+              <input
+                type="text"
+                id="editPhoneNumber"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div class="flex flex-col sm:col-span-2">
+              <label
+                for="editAddress"
+                class="mb-2 text-sm font-medium text-gray-700"
+                >Address</label
+              >
+              <input
+                type="text"
+                id="editAddress"
+                class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+          </div>
+          <div class="flex justify-end mt-6">
+            <button
+              type="submit"
+              class="px-6 py-2 font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Save Changes
+            </button>
+            <button
+                type="button"
+                id="cancelEditButton"
+                class="px-6 py-2 ml-4 font-semibold text-gray-600 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
+                >
+                Cancel
+            </button>
 
-    <script src="./TableData.js"></script>
-</body>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
